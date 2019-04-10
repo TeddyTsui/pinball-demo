@@ -27,14 +27,15 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        isEnter: false
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         let graphics = this.node.getComponent(cc.Graphics)
-        graphics.fillColor = cc.Color.WHITE
-        graphics.circle(0, 0, 50)
+        graphics.fillColor = cc.Color.CYAN
+        graphics.circle(0, 0, 25)
         graphics.fill()
     },
 

@@ -23,10 +23,10 @@ cc.Class({
             joint.mouseRegion = this.node;    
         }
         
-        this._addBound(node, 0, height/2, width, 20);
-        this._addBound(node, 0, -height/2, width, 20);
-        this._addBound(node, -width/2, 0, 20, height);
-        this._addBound(node, width/2, 0, 20, height);
+        this._addBound(node, 0, height/2 + 10, width, 20);
+        this._addBound(node, 0, -height/2 - 10, width, 20);
+        this._addBound(node, -width/2 - 10, 0, 20, height);
+        this._addBound(node, width/2 + 10, 0, 20, height);
 
         node.parent = this.node;
     },
@@ -37,5 +37,6 @@ cc.Class({
         collider.offset.y = y;
         collider.size.width = width;
         collider.size.height = height;
+        collider.friction = 0
     }
 });

@@ -20,7 +20,7 @@ cc.Class({
     onLoad () {
         let graphics = this.node.getComponent(cc.Graphics)
         graphics.fillColor = cc.Color.WHITE
-        graphics.fillRect(-50,-60, 100, 120)
+        graphics.fillRect(-25,-50, 50, 100)
     },
 
     start () {

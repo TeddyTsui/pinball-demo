@@ -32,12 +32,20 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        
+        // 轨道
+        let graphics = this.node.getComponent(cc.Graphics)
+        graphics.strokeColor = cc.Color.GRAY
+        graphics.lineJoin = cc.Graphics.LineJoin.ROUND
+        graphics.lineCap = cc.Graphics.LineCap.ROUND
+        graphics.lineWidth = 10
+        graphics.moveTo(695, 0)
+        graphics.lineTo(695, 1098)
+        graphics.arc(295, 650, 600, (53.13 /90)*Math.PI, 0.267*Math.PI)
+        graphics.stroke()
     },
 
     start () {
-        let body = this.node.getComponent(cc.RigidBody)
-        body.applyForceToCenter(cc.v2(0, 1000000000))
+
     },
 
     // update (dt) {},
