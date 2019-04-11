@@ -13,5 +13,5 @@ cc.game.on(cc.game.EVENT_ENGINE_INITED, () => {
         cc.PhysicsManager.DrawBits.e_centerOfMassBit |
         cc.PhysicsManager.DrawBits.e_jointBit |
         cc.PhysicsManager.DrawBits.e_shapeBit;
-    cc.director.getPhysicsManager().gravity = cc.v2(0, -1280);
+    cc.director.getPhysicsManager().gravity = cc.v2(0, -1334);
 })
