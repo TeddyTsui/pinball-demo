@@ -24,7 +24,7 @@ cc.Class({
         }
         
         this._addBound(node, 0, height/2 + 10, width, 20);
-        this._addBound(node, 0, -height/2 - 10, width, 20);
+        // this._addBound(node, 0, -height/2 - 10, width, 20);
         this._addBound(node, -width/2 - 10, 0, 20, height);
         this._addBound(node, width/2 + 10, 0, 20, height);
 
