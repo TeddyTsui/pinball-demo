@@ -8,6 +8,8 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
+let store = require('GameStore')
+
 cc.Class({
     extends: cc.Component,
 
@@ -32,6 +34,7 @@ cc.Class({
         leftBoard: cc.Node,
         rightBoard: cc.Node,
         statusViewNode: cc.Node,
+        // playground: cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -44,12 +47,17 @@ cc.Class({
         this.emitLeft = false
         this.emitRight = false
 
-        this.ball = this.ballNode.getComponent('SimpleBall')
-        this.boss = this.bossNode.getComponent('SimpleBoss')
+        // this.ball = this.ballNode.getComponent('SimpleBall')
+        // this.boss = this.bossNode.getComponent('SimpleBoss')
+
+        this.ball = store.getBall()
+        this.boss = store.getBoss()
+
+        // cc.log(store)
 
         // 板子受力刚体
-        this._leftBoard = this.leftBoard.getComponent('Board').getForceNode()
-        this._rightBoard = this.rightBoard.getComponent('Board').getForceNode()
+        this._leftBoard = this.leftBoard.getComponent('SimpleBoard').getForceNode()
+        this._rightBoard = this.rightBoard.getComponent('SimpleBoard').getForceNode()
 
         this.statusCtrl = this.statusViewNode.getComponent('StatusView')
 
@@ -68,47 +76,39 @@ cc.Class({
                 this.emitRight = false
             }
         },this)
-
-        this.node.on('attackBoss', (e) => {
-            this.boss.Hp -= e.atk
-            e.stopPropagation()
-        })
-
-        this.node.on('chargeBall', (e) => {
-            this.ball.energy += e.energy
-            e.stopPropagation()
-        })
-
-        this.node.on('affactBoss', (e, arg) => {
-            if(arg instanceof Function){
-                cc.log('get boss callback')
-            }else if(arg instanceof Object){
-                cc.log('get boss status')
-            }
-            e.stopPropagation()
-        })
-
-        this.node.on('affactBall', (e, arg) => {
-            if(arg instanceof Function){
-                cc.log('get ball callback')
-            }else if(arg instanceof Object){
-                cc.log('get ball status')
-            }
-            e.stopPropagation()
-        })
-
     },
 
     start () {
         cc.log('start')
-        let scheduler = cc.director.getScheduler()
-
-        scheduler.enableForTarget(this)
-
-        scheduler.schedule(() => {
-            cc.log('tick')
+        this.schedule(() => {
+            // 每秒消耗能量
             this.ball.energy -= this.ball.cost
-        }, this, 1000)
+        }, 1)
+    },
+  
+    update (dt) {
+        this.gameLogic(dt)
+        this.updateView()
+    },
+
+    /**
+     * 初始化场景布局，传入控制模块
+     */
+    initPlayground() {
+        // let layout = store.getPlaygroundLayout()
+        // layout.map((item) => {
+        //     let prefabName = item.prefab
+        //     if(item.slotId !== undefined){
+        //         // get user setting
+        //         // replace prefab
+        //     }
+        //     cc.loader.loadRes('prefab/' + prefabName, (err, prefab) => {
+        //         let newItem = cc.instantiate(prefab)
+        //         this.playground.addChild(newItem)
+        //         newItem.x = item.x
+        //         newItem.y = item.y
+        //     })
+        // })
     },
 
     /**
@@ -127,7 +127,7 @@ cc.Class({
         this.ballNode.x = 100
         this.ballNode.y = 1200
         this.ball.energy = this.ball.maxEnergy
-        this.boss.Hp = this.boss.maxHp
+        this.boss.hp = this.boss.maxHp
     },
 
     /**
@@ -136,7 +136,7 @@ cc.Class({
     updateView() {
         this.statusCtrl.updateBall(this.ball.energy/ this.ball.maxEnergy)
 
-        this.statusCtrl.updateBoss(this.boss.Hp/ this.boss.maxHp)
+        this.statusCtrl.updateBoss(this.boss.hp/ this.boss.maxHp)
     },
 
     /**
@@ -180,13 +180,9 @@ cc.Class({
         }
 
         // 击败Boss
-        if(this.boss.Hp <0){
+        if(this.boss.hp <0){
             this.endTheGame(true)
         }
     },
-    
-    update (dt) {
-        this.gameLogic(dt)
-        this.updateView()
-    },
+
 });

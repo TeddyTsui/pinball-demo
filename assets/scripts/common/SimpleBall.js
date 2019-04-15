@@ -12,6 +12,8 @@
  * 球基类
  */
 
+let store = require('GameStore')
+
 cc.Class({
     extends: cc.Component,
 
@@ -39,12 +41,22 @@ cc.Class({
         energy: 100,
         cost: 1,
         attack: 10,
-
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad() {
+        store.setBall({
+            energy: this.energy,
+            maxEnergy: this.maxEnergy,
+            cost: this.cost,
+            atk: this.attack,
+        })
+    },
+
+    onBeginContact(contact, selfCollider, otherCollider) {
+        // cc.log('ball contact')
+    },
 
     start() {
 

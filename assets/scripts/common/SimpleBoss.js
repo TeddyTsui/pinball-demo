@@ -8,6 +8,8 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
+let store = require('GameStore')
+
 cc.Class({
     extends: cc.Component,
 
@@ -28,12 +30,17 @@ cc.Class({
         //     }
         // },
         maxHp: 100,
-        Hp: 100,
+        hp: 100,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        store.setBoss({
+            maxHp: this.maxHp,
+            hp: this.hp,
+        })
+    },
 
     start () {
 
