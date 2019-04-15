@@ -18,7 +18,9 @@ let BlockType = cc.Enum({
     friend: 3,
 })
 
-let BaseBlock = cc.Class({
+let store = require('GameStore')
+
+cc.Class({
     extends: cc.Component,
 
     properties: {
@@ -64,17 +66,45 @@ let BaseBlock = cc.Class({
         this.simpleMethod()
     },
 
+    /**
+     * 作用于boss
+     * @param {Object} boss 数值
+     * @param {Boolean} override 是否直接覆盖
+     * @param {Boolean} positive 是否正影响
+     */
+    affectOnBoss(boss, override, positive) {
+        if(override){
+            store.setBoss(boss)
+        }else{
+            store.affectOnBoss(boss, positive)
+        }
+    },
+
+    /**
+     * 作用于ball
+     * @param {Object} ball 数值
+     * @param {Boolean} override 是否直接覆盖
+     * @param {Boolean} positive 是否正影响
+     */
+    affectOnBall(ball, override, positive) {
+        if(override){
+            store.setBall(ball)
+        }else{
+            store.affectOnBall(ball, positive)
+        }
+    },
+
     simpleMethod() {
         if(this.type == BlockType.enemy){
-            let attack = new cc.Event.EventCustom('attackBoss', true)
-            attack.setUserData({atk: simpleEffect})
-            this.node.dispatchEvent(attack)
+            this.affectOnBoss({
+                hp: this.simpleEffect
+            }, false, false)
         }else if(this.type == BlockType.friend){
-            let charge = new cc.Event.EventCustom('chargeBall', true)
-            charge.setUserData({energy: simpleEffect})
-            this.node.dispatchEvent(charge)
+            this.affectOnBall({
+                energy: this.simpleEffect
+            }, false, true)
         }
-    }
-
+    },
+    
     // update (dt) {},
 });
