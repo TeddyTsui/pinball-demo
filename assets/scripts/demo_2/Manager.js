@@ -29,12 +29,8 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        ballNode: cc.Node,
-        bossNode: cc.Node,
-        leftBoard: cc.Node,
-        rightBoard: cc.Node,
         statusViewNode: cc.Node,
-        // playground: cc.Node,
+        playground: cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -47,11 +43,8 @@ cc.Class({
         this.emitLeft = false
         this.emitRight = false
 
-        // this.ball = this.ballNode.getComponent('SimpleBall')
-        // this.boss = this.bossNode.getComponent('SimpleBoss')
-
-        this.ball = store.getBall()
-        this.boss = store.getBoss()
+        this.ball = store.getter('ball')
+        this.boss = store.getter('boss')
 
         // cc.log(store)
 
@@ -95,20 +88,44 @@ cc.Class({
      * 初始化场景布局，传入控制模块
      */
     initPlayground() {
-        // let layout = store.getPlaygroundLayout()
-        // layout.map((item) => {
-        //     let prefabName = item.prefab
-        //     if(item.slotId !== undefined){
-        //         // get user setting
-        //         // replace prefab
-        //     }
-        //     cc.loader.loadRes('prefab/' + prefabName, (err, prefab) => {
-        //         let newItem = cc.instantiate(prefab)
-        //         this.playground.addChild(newItem)
-        //         newItem.x = item.x
-        //         newItem.y = item.y
-        //     })
-        // })
+        let layout = store.getPlaygroundLayout()
+        layout.map((item) => {
+            let prefabName = item.prefab
+            if(item.slotId !== undefined){
+                // get user setting
+                // replace prefab
+            }
+            cc.loader.loadRes('prefab/' + prefabName, (err, prefab) => {
+                let newItem = cc.instantiate(prefab)
+                this.playground.addChild(newItem)
+                newItem.x = item.x
+                newItem.y = item.y
+            })
+        })
+    },
+
+    initPlayItem() {
+        // TODO
+        cc.loader.loadRes('prefab/' + this.config.ball, (err, prefab) => {
+            let ball = cc.instantiate(prefab)
+            this.addChild(newItem)
+            newItem.x = item.x
+            newItem.y = item.y
+        })
+
+        cc.loader.loadRes('prefab/' + this.config.leftBoard, (err, prefab) => {
+            let leftBoard = cc.instantiate(prefab)
+            this.playground.addChild(newItem)
+            newItem.x = item.x
+            newItem.y = item.y
+        })
+
+        cc.loader.loadRes('prefab/' + this.config.rightBoard, (err, prefab) => {
+            let rightBoard = cc.instantiate(prefab)
+            this.playground.addChild(newItem)
+            rightBoard.x = item.x
+            rightBoard.y = item.y
+        })
     },
 
     /**

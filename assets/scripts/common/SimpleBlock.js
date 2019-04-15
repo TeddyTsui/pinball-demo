@@ -74,7 +74,7 @@ cc.Class({
      */
     affectOnBoss(boss, override, positive) {
         if(override){
-            store.setBoss(boss)
+            store.setter('boss', boss)
         }else{
             store.affectOnBoss(boss, positive)
         }
@@ -88,7 +88,7 @@ cc.Class({
      */
     affectOnBall(ball, override, positive) {
         if(override){
-            store.setBall(ball)
+            store.setter('ball', ball)
         }else{
             store.affectOnBall(ball, positive)
         }

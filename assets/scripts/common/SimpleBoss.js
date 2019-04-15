@@ -36,7 +36,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        store.setBoss({
+        store.setter('boss', {
             maxHp: this.maxHp,
             hp: this.hp,
         })

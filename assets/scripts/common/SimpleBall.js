@@ -46,7 +46,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        store.setBall({
+        store.setter('ball', {
             energy: this.energy,
             maxEnergy: this.maxEnergy,
             cost: this.cost,
