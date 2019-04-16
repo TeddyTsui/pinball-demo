@@ -1,21 +1,26 @@
 const _store = {
     playerConfig: {// 玩家配置
-        layout: {},
+        // left_board: 'Left Board',
+        // right_board: 'Right Board',
         ball: 'Simple Ball',
-        left_board: 'Left Board',
-        right_board: 'Right Board',
     },
 
-    playground: {// 场景布局
-    },
-    
+    playground: [// 场景布局
+        { prefab: 'Simple Boss', x: 375, y: 1000 },
+        { prefab: 'Left Base', x: 0, y: 0 },
+        { prefab: 'Right Base', x: 750, y: 0 },
+        { prefab: 'Recover Block', x: 720, y: 550, slotId: '1' },
+        { prefab: 'Left Board', x: 230, y: 95, slotId: 'left_board'},
+        { prefab: 'Right Board', x: 500, y: 95, slotId: 'right_board'},
+    ],
+
     ball: {// 球属性
         energy: 100,
         maxEnergy: 100,
         cost: 1,
         atk: 10,
     },
-    
+
     boss: {// boss属性
         hp: 100,
         maxHp: 100,
@@ -23,10 +28,14 @@ const _store = {
 }
 
 module.exports = {
-    setter(name, obj) {
-        Object.keys(obj).map((val, key) => {
-            _store[name][key] = val
-        })
+    setter(name, arg) {
+        if(arg instanceof Array){
+            _store[name] = [].concat(arg)
+        }else{
+            Object.keys(arg).map((val, key) => {
+                _store[name][key] = val
+            })
+        }
     },
 
     getter(name) {
