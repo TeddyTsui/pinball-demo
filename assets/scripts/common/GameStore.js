@@ -1,3 +1,7 @@
+/**
+ * 游戏进程中游戏状态管理
+ */
+
 const _store = {
     playerConfig: {// 玩家配置
         // left_board: 'Left Board',

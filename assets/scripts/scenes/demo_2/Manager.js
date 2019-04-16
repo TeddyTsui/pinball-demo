@@ -8,6 +8,10 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
+/**
+ * 游戏操作逻辑管理
+ */
+
 let store = require('GameStore')
 
 cc.Class({
@@ -21,6 +25,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        // 环境设定 考虑加入关卡设计
         this.leftForce = 0
         this.rightForce = 0
         this.maxPower = 2000000
@@ -35,12 +40,11 @@ cc.Class({
 
         this.statusCtrl = this.statusViewNode.getComponent('StatusView')
 
-        this.isLoading = true
+        this.isLoading = true // 等待资源加载完毕
         this.resLen = this.layout.length
         this.loadedLen = 0
         this.initPlayground()
         this.loadBall()
-
 
         this.node.on('touchstart', (e) => {
             if (this.launched) {

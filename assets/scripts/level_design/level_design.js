@@ -1,3 +1,7 @@
+/**
+ * 关卡设计，关卡信息
+ */
+
 module.exports = {
     level_1: [
         { prefab: 'Simple Boss', x: 375, y: 1000 },
