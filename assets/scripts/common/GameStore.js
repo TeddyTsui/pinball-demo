@@ -46,6 +46,10 @@ module.exports = {
         return _store[name]
     },
 
+    attackBoss() {
+        _store.boss.hp -= _store.ball.atk
+    },
+
     affectOnBoss(boss, positive) {
         _store.boss.hp += (positive ? 1 : -1) * boss.hp
     },

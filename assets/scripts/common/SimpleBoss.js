@@ -42,6 +42,14 @@ cc.Class({
         })
     },
 
+    onBeginContact(contact, selfCollider, otherCollider) {
+        this.beHarmed()
+    },
+
+    beHarmed() {
+        store.attackBoss()
+    },
+
     start () {
 
     },
