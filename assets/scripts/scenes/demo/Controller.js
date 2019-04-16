@@ -112,4 +112,8 @@ cc.Class({
                 .applyForceToCenter(cc.v2(0, 100000))
         }
     },
+
+    backToLobby() {
+        cc.director.loadScene('lobby')
+    },
 });

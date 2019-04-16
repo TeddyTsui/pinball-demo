@@ -27,20 +27,22 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        ball: cc.ProgressBar,
-        boss: cc.ProgressBar,
+        ball_p: cc.ProgressBar,
+        ball_t: cc.Label,
+        boss_p: cc.ProgressBar,
+        boss_t: cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    updateBall(progress) {
-        // cc.log('ball: ' + this.ball.progress)
-        this.ball.progress = progress
+    updateBall(current, max) {
+        this.ball_p.progress = current/max
+        this.ball_t.string = current + '/' + max
     },
 
-    updateBoss(progress) {
-        // cc.log('boss: ' + this.boss.progress)
-        this.boss.progress = progress
+    updateBoss(current, max) {
+        this.boss_p.progress = current/max
+        this.boss_t.string = current + '/' + max
     },
 
     // onLoad () {},

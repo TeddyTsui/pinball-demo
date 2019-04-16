@@ -8,6 +8,8 @@
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
+let gameLoader = require('GameLoader')
+
 cc.Class({
     extends: cc.Component,
 
@@ -37,8 +39,8 @@ cc.Class({
 
     },
 
-    quickStart(){
-        cc.director.loadScene('demo')
+    quickStart(e, sceneName){
+        cc.director.loadScene(sceneName, gameLoader.loadLevel('level_2'))
     }
 
     // update (dt) {},
